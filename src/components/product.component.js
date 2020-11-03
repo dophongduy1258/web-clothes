@@ -1,20 +1,126 @@
-import React ,{Component} from "react";
+import React ,{Component,useContext} from "react";
 import {BrowserRouter as Router,Route,Link, Switch} from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText, Container } from 'reactstrap';
 import { FaCartPlus ,FaUser,FaTruck,FaRedoAlt,FaQuestionCircle,FaEnvelope,FaPhoneAlt} from 'react-icons/fa';
 import { FiChevronDown,FiHeart } from "react-icons/fi";
 import { BiSearch } from "react-icons/bi";
 import { IoMdPin } from "react-icons/io";
-
+import {ProductContext} from "../contexts/product.context";
+// import Card from "../components/card.component";
+var randomstring = require("randomstring");
 
 export default class Product extends Component{
     constructor(props){
         super(props);
+        this.state={
+            productList : []
+        }
     }
+
+    
+    // tạo random data
+    onGenerateData = ()=>{
+        var product = [
+            {
+            id: this.onGenerateID(),
+            name:'vest',
+            price:"200000",
+            image:"https://vestdep.net/upload/vestdep/2017/08/bo-vest-nam-xanh-caro-denim-cao-cap-3.jpg",
+            description:"egfeagaeg",
+            },
+            {
+            id:this.onGenerateID(),
+            name:'blaze',
+            price:"250000",
+            image:"https://cf.shopee.vn/file/c8e9dce4a61f4fc97965a55a01645e9f",
+            description:"db5b45b",
+            },
+            {
+            id:this.onGenerateID(),
+            name:'hoodie',
+            price:"100000",
+            image:"https://cf.shopee.vn/file/685369fcf3d967f43ce0b320a1533b46",
+            description:"3wgv34g2t",
+            },
+        ]
+        localStorage.setItem('product',JSON.stringify(product));
+        console.log("onGenerateData in context"+this.state.productList);
+        console.log(product);
+        
+    }
+
+
+    // Tạo chuỗi ID ngẫu nhiên
+    onGenerateID = ()=>{
+        var id = randomstring.generate();
+        return id;
+    }
+
+    setProductList=(products)=>{
+        // console.log("setProductList"+products);
+        this.setState({
+            productList:products
+        })
+        
+        localStorage.setItem('product',JSON.stringify(products));
+    }
+
+    componentDidMount(){
+        console.log("componentDidMount");
+        // kiểm tra xem localStorage có khác null ko và có lấy đc key ko 
+        if(localStorage && localStorage.getItem("product") ) {
+            var product = JSON.parse(localStorage.getItem("product"));
+            console.log("componentDidMount lần 2 refresh check productList đã lưu data chưa");
+            console.log(this.state.productList);
+            this.setState({
+                productList:this.state.productList.push(product)
+            })
+            console.log("check type of productList");
+            console.log(typeof this.state.productList);
+        }
+        
+
+    }
+
+
+
     render(){
+        // const context = useContext(ProductContext);
+        // console.log("check context.productlist");
+        // var element = context.productList.map((value)=>{
+            // <div className="col-sm-6 col-lg-4 mb-4" >
+            //      <div className="block-4 text-center border">
+            //          <figure className="block-4-image">
+            //              <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
+            //          </figure>
+            //          <div className="block-4-text p-4">
+            //              <h3><Link to="/infoClothe/">{value.name}</Link></h3>
+            //              <p className="mb-0">{value.description}</p>
+            //              <p className="text-primary font-weight-bold">{value.price}</p>
+            //          </div>
+            //      </div>
+            //  </div>
+        // });
 
 
-
+        // const {productList} = this.state;
+    //     var elementProduct = this.state.productList.map((value,key)=>(
+            
+    //         <div className="col-sm-6 col-lg-4 mb-4" >
+    //             <div className="block-4 text-center border">
+    //                 <figure className="block-4-image">
+    //                     <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
+    //                 </figure>
+    //                 <div className="block-4-text p-4">
+    //                     <h3><Link to="/infoClothe/">{value.name}</Link></h3>
+    //                     <p className="mb-0">{value.description}</p>
+    //                     <p className="text-primary font-weight-bold">{value.price}</p>
+    //                 </div>
+    //             </div>
+    //         </div>
+    // ));
+            
+    
         return(
             <div className="site-wrap">
                 <header className="site-navbar" role="banner">
@@ -98,7 +204,12 @@ export default class Product extends Component{
                         <div className="col-md-9 order-2">
                             <div className="row">
                                 <div className="col-md-12 mb-5">
-                                <div className="float-md-left mb-4"><h2 className="text-black h5">Shop All</h2> <Button><Link to="/addClothe/">Add</Link></Button></div>
+                                <div className="float-md-left mb-4"><h2 className="text-black h5">Shop All</h2> <Button><Link to="/addClothe/">Add</Link></Button>
+                                    {/* <ProductContext.Consumer>
+                                        {({onGenerateData})=><Button onClick={onGenerateData}>random clothe</Button>}
+                                    </ProductContext.Consumer> */}
+                                    <Button onClick={this.onGenerateData}>random clothe</Button>
+                                </div>
                                 <div className="d-flex">
                                     <div className="dropdown mr-1 ml-md-auto">
                                     <button type="button" className="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -126,154 +237,31 @@ export default class Product extends Component{
                             </div>
 
                             {/* list product */}
+                            
                             <div className="row mb-5">
-                                <div className="col-sm-6 col-lg-4 mb-4" >
-                                <div className="block-4 text-center border">
-                                    <figure className="block-4-image">
-                                    <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                    </figure>
-                                    <div className="block-4-text p-4">
-                                    <h3><Link to="/infoClothe/">Tank Top</Link></h3>
-                                    <p className="mb-0">Finding perfect t-shirt</p>
-                                    <p className="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4" >
-                                <div className="block-4 text-center border">
-                                    <figure className="block-4-image">
-                                    <a href="shop-single.html"><img src="images/shoe_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                    </figure>
-                                    <div className="block-4-text p-4">
-                                    <h3><a href="shop-single.html">Corater</a></h3>
-                                    <p className="mb-0">Finding perfect products</p>
-                                    <p className="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4" >
-                                <div className="block-4 text-center border">
-                                    <figure className="block-4-image">
-                                    <a href="shop-single.html"><img src="images/cloth_2.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                    </figure>
-                                    <div className="block-4-text p-4">
-                                    <h3><a href="shop-single.html">Polo Shirt</a></h3>
-                                    <p className="mb-0">Finding perfect products</p>
-                                    <p className="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4" >
-                                <div className="block-4 text-center border">
-                                    <figure className="block-4-image">
-                                    <a href="shop-single.html"><img src="images/cloth_3.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                    </figure>
-                                    <div className="block-4-text p-4">
-                                    <h3><a href="shop-single.html">T-Shirt Mockup</a></h3>
-                                    <p className="mb-0">Finding perfect products</p>
-                                    <p className="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4" >
-                                <div className="block-4 text-center border">
-                                    <figure className="block-4-image">
-                                    <a href="shop-single.html"><img src="images/shoe_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                    </figure>
-                                    <div className="block-4-text p-4">
-                                    <h3><a href="shop-single.html">Corater</a></h3>
-                                    <p className="mb-0">Finding perfect products</p>
-                                    <p className="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4" >
-                                <div className="block-4 text-center border">
-                                    <figure className="block-4-image">
-                                    <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                    </figure>
-                                    <div className="block-4-text p-4">
-                                    <h3><a href="shop-single.html">Tank Top</a></h3>
-                                    <p className="mb-0">Finding perfect t-shirt</p>
-                                    <p className="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4" >
-                                <div className="block-4 text-center border">
-                                    <figure className="block-4-image">
-                                    <a href="shop-single.html"><img src="images/shoe_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                    </figure>
-                                    <div className="block-4-text p-4">
-                                    <h3><a href="shop-single.html">Corater</a></h3>
-                                    <p className="mb-0">Finding perfect products</p>
-                                    <p className="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4" >
-                                <div className="block-4 text-center border">
-                                    <figure className="block-4-image">
-                                    <a href="shop-single.html"><img src="images/cloth_2.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                    </figure>
-                                    <div className="block-4-text p-4">
-                                    <h3><a href="shop-single.html">Polo Shirt</a></h3>
-                                    <p className="mb-0">Finding perfect products</p>
-                                    <p className="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4" >
-                                <div className="block-4 text-center border">
-                                    <figure className="block-4-image">
-                                    <a href="shop-single.html"><img src="images/cloth_3.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                    </figure>
-                                    <div className="block-4-text p-4">
-                                    <h3><a href="shop-single.html">T-Shirt Mockup</a></h3>
-                                    <p className="mb-0">Finding perfect products</p>
-                                    <p className="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4" >
-                                <div className="block-4 text-center border">
-                                    <figure className="block-4-image">
-                                    <a href="shop-single.html"><img src="images/shoe_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                    </figure>
-                                    <div className="block-4-text p-4">
-                                    <h3><a href="shop-single.html">Corater</a></h3>
-                                    <p className="mb-0">Finding perfect products</p>
-                                    <p className="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4" >
-                                <div className="block-4 text-center border">
-                                    <figure className="block-4-image">
-                                    <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                    </figure>
-                                    <div className="block-4-text p-4">
-                                    <h3><a href="shop-single.html">Tank Top</a></h3>
-                                    <p className="mb-0">Finding perfect t-shirt</p>
-                                    <p className="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                                </div>
-                                <div className="col-sm-6 col-lg-4 mb-4" >
-                                <div className="block-4 text-center border">
-                                    <figure className="block-4-image">
-                                    <a href="shop-single.html"><img src="images/cloth_2.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                    </figure>
-                                    <div className="block-4-text p-4">
-                                    <h3><a href="shop-single.html">Polo Shirt</a></h3>
-                                    <p className="mb-0">Finding perfect products</p>
-                                    <p className="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {/* end list product */}
+                                {/* {elementProduct} */}
+                                {/* {
+                                    context.productList.map((value)=>{
+                                        <div className="col-sm-6 col-lg-4 mb-4" >
+                                            <div className="block-4 text-center border">
+                                                <figure className="block-4-image">
+                                                    <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
+                                                </figure>
+                                                <div className="block-4-text p-4">
+                                                    <h3><Link to="/infoClothe/">{value.name}</Link></h3>
+                                                    <p className="mb-0">{value.description}</p>
+                                                    <p className="text-primary font-weight-bold">{value.price}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    })
+                                } */}
 
+                                {/* {result} */}
+
+                            </div>
+                                
+                            {/* end list product */}
 
                         <div className="row" >
                             <div className="col-md-12 text-center">

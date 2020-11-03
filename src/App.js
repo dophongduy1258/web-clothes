@@ -365,7 +365,7 @@ export default class App extends Component{
                           <div className="col-md-12">
                           <p>
                               {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-                              Copyright © All rights reserved | This template is made with <i className="icon-heart" aria-hidden="true" /> by <a href="https://colorlib.com" target="_blank" className="text-primary">Colorlib</a>
+                              {/* Copyright © All rights reserved | This template is made with <i className="icon-heart" aria-hidden="true" /> by <a href="https://colorlib.com" target="_blank" className="text-primary">Colorlib</a> */}
                               {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
                           </p>
                           </div>
