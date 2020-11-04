@@ -53,20 +53,20 @@ export default class ProductProvider extends Component{
 
     
 
-    componentDidMount(){
-        console.log("componentDidMount");
-        // kiểm tra xem localStorage có khác null ko và có lấy đc key ko 
-        if(localStorage && localStorage.getItem("product") ) {
-            var product = JSON.parse(localStorage.getItem("product"));
-            console.log("componentDidMount lần 2 refresh check productList đã lưu data chưa");
-            console.log(this.state.productList);
-            this.setState({
-                productList:this.state.productList.push(product)
-            })
-        }
+    // componentDidMount(){
+    //     console.log("componentDidMount");
+    //     // kiểm tra xem localStorage có khác null ko và có lấy đc key ko 
+    //     if(localStorage && localStorage.getItem("product") ) {
+    //         var product = JSON.parse(localStorage.getItem("product"));
+    //         console.log("componentDidMount lần 2 refresh check productList đã lưu data chưa");
+    //         console.log(this.state.productList);
+    //         this.setState({
+    //             productList:this.state.productList.push(product)
+    //         })
+    //     }
         
 
-    }
+    // }
 
     setProductList(products){
         console.log("setProductList"+products);

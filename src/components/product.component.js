@@ -13,7 +13,29 @@ export default class Product extends Component{
     constructor(props){
         super(props);
         this.state={
-            productList : []
+            productList : [
+                {
+                    id: this.onGenerateID(),
+                    name:'vest',
+                    price:"200000",
+                    image:"https://vestdep.net/upload/vestdep/2017/08/bo-vest-nam-xanh-caro-denim-cao-cap-3.jpg",
+                    description:"egfeagaeg",
+                },
+                {
+                    id:this.onGenerateID(),
+                    name:'blaze',
+                    price:"250000",
+                    image:"https://cf.shopee.vn/file/c8e9dce4a61f4fc97965a55a01645e9f",
+                    description:"db5b45b",
+                },
+                {
+                    id:this.onGenerateID(),
+                    name:'hoodie',
+                    price:"100000",
+                    image:"https://cf.shopee.vn/file/685369fcf3d967f43ce0b320a1533b46",
+                    description:"3wgv34g2t",
+                }
+            ]
         }
     }
 
@@ -43,9 +65,9 @@ export default class Product extends Component{
             description:"3wgv34g2t",
             },
         ]
-        localStorage.setItem('product',JSON.stringify(product));
-        console.log("onGenerateData in context"+this.state.productList);
-        console.log(product);
+        // localStorage.setItem('product',JSON.stringify(product));
+        // console.log("onGenerateData in context"+this.state.productList);
+        // console.log(product);
         
     }
 
@@ -65,22 +87,22 @@ export default class Product extends Component{
         localStorage.setItem('product',JSON.stringify(products));
     }
 
-    componentDidMount(){
-        console.log("componentDidMount");
-        // kiểm tra xem localStorage có khác null ko và có lấy đc key ko 
-        if(localStorage && localStorage.getItem("product") ) {
-            var product = JSON.parse(localStorage.getItem("product"));
-            console.log("componentDidMount lần 2 refresh check productList đã lưu data chưa");
-            console.log(this.state.productList);
-            this.setState({
-                productList:this.state.productList.push(product)
-            })
-            console.log("check type of productList");
-            console.log(typeof this.state.productList);
-        }
+    // componentDidMount(){
+    //     console.log("componentDidMount");
+    //     // kiểm tra xem localStorage có khác null ko và có lấy đc key ko 
+    //     if(localStorage && localStorage.getItem("product") ) {
+    //         var product = JSON.parse(localStorage.getItem("product"));
+    //         console.log("componentDidMount lần 2 refresh check productList đã lưu data chưa");
+    //         console.log(this.state.productList);
+    //         this.setState({
+    //             productList:this.state.productList.push(product)
+    //         })
+    //         console.log("check type of productList");
+    //         console.log(typeof this.state.productList);
+    //     }
         
 
-    }
+    // }
 
 
 
@@ -103,22 +125,23 @@ export default class Product extends Component{
         // });
 
 
-        // const {productList} = this.state;
-    //     var elementProduct = this.state.productList.map((value,key)=>(
+        const {productList} = this.state;
+        var elementProduct = productList.map((value,key)=>(
             
-    //         <div className="col-sm-6 col-lg-4 mb-4" >
-    //             <div className="block-4 text-center border">
-    //                 <figure className="block-4-image">
-    //                     <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
-    //                 </figure>
-    //                 <div className="block-4-text p-4">
-    //                     <h3><Link to="/infoClothe/">{value.name}</Link></h3>
-    //                     <p className="mb-0">{value.description}</p>
-    //                     <p className="text-primary font-weight-bold">{value.price}</p>
-    //                 </div>
-    //             </div>
-    //         </div>
-    // ));
+            <div className="col-sm-6 col-lg-4 mb-4" >
+                <div className="block-4 text-center border">
+                    <figure className="block-4-image">
+                        <a href="shop-single.html"><img src={value.image} alt="Image placeholder" className="img-fluid" /></a>
+                    </figure>
+                    <div className="block-4-text p-4">
+                        <h3><Link to="/infoClothe/">{value.name}</Link></h3>
+                        <p className="mb-0">{value.description}</p>
+                        <p className="text-primary font-weight-bold">{value.price}</p>
+                    </div>
+                    <button className="btn btn-primary btn-sm btn-block">Add To Cart</button>
+                </div>
+            </div>
+    ));
             
     
         return(
@@ -208,7 +231,7 @@ export default class Product extends Component{
                                     {/* <ProductContext.Consumer>
                                         {({onGenerateData})=><Button onClick={onGenerateData}>random clothe</Button>}
                                     </ProductContext.Consumer> */}
-                                    <Button onClick={this.onGenerateData}>random clothe</Button>
+                                    {/* <Button onClick={this.onGenerateData}>random clothe</Button> */}
                                 </div>
                                 <div className="d-flex">
                                     <div className="dropdown mr-1 ml-md-auto">
@@ -239,7 +262,7 @@ export default class Product extends Component{
                             {/* list product */}
                             
                             <div className="row mb-5">
-                                {/* {elementProduct} */}
+                                {elementProduct}
                                 {/* {
                                     context.productList.map((value)=>{
                                         <div className="col-sm-6 col-lg-4 mb-4" >

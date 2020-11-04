@@ -6,7 +6,7 @@ import { FiChevronDown,FiHeart } from "react-icons/fi";
 import { FaCartPlus ,FaUser,FaTruck,FaRedoAlt,FaQuestionCircle,FaEnvelope,FaPhoneAlt} from 'react-icons/fa';
 import { BiSearch } from "react-icons/bi";
 import { IoMdPin } from "react-icons/io";
-
+import axios from "axios";
 
 export default class AddClothe extends Component{
     constructor(props){
@@ -43,6 +43,18 @@ export default class AddClothe extends Component{
 
     onSubmit = (event)=>{
         event.preventDefault();
+        var product = {
+            name:this.state.name,
+            price:this.state.price,
+            image:this.state.image,
+            description:this.state.description
+        }
+        console.log(product);
+        axios.post("http://localhost:2020/product/addProduct",product)
+            .then(res => console.log(res.data));
+            
+
+        // localStorage.setItem("product",JSON.stringify());
     }
 
     render(){
@@ -224,9 +236,10 @@ export default class AddClothe extends Component{
                                 </Label>
                             </FormGroup> */}
                             
-                            <ProductContext.Consumer>
+                            {/* <ProductContext.Consumer>
                                 {({setProductList})=><Button type="submit" onClick={()=> setProductList(this.state)}  >Submit</Button>}
-                            </ProductContext.Consumer>
+                            </ProductContext.Consumer> */}
+                            <Button type="submit" >Submit</Button>
                         </Form>
 
                     </div>

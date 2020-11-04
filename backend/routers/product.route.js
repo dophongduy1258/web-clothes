@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
-// var controller = require('../controllers/book.controller');
+var controller = require('../controllers/product.controller');
 
-// router.get('',controller.home);
+
+router.get('',controller.Product);
 // router.post('',controller.postDeleteBook);
-// router.get('/create',controller.createBook);
-// router.post('/create',controller.postCreateBook);
+// router.get('/addProduct');
+router.post('/addProduct',controller.postCreateProduct);
 // router.get('/edit/:id',controller.editBook);
 // router.post('/edit/:id',controller.postEditBook);
 
