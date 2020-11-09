@@ -1,22 +1,38 @@
-var Product = require('../models/product.model');
+var ProductModel = require('../models/product.model');
 
-module.exports.Product = (req,res)=>{
-    Product.find()
-        .then(products => res.json(products))
-        .catch(err =>res.status(400).json('Error : '+err) );
+module.exports.getProduct = (req,res)=>{
+    // var product = await Product.find()
+        // .then((data)=>{
+        //     console.log("Data : ",data);
+        //     res.json(data);
+        // })
+        // .catch((error)=>{
+        //     console.log('Error : ',error);
+        // });
+        // Product.find({})
+        //     .then(data => console.log('data',data))
+        //     .catch(err =>res.status(400).json('Error : '+err) );
 
-}
+        
+        ProductModel.find({})
+            .then(function(data){   
+                console.log('data',data);
+                res.json(data)
+            })
+            .catch(function(err){
+                console.log('error',err);
+            })
+    }
 
+module.exports.getData = (req,res)=>{
 
-module.exports.postCreateProduct = (req,res)=>{
-    var name = req.body.name;
-    var price = req.body.price;
-    var image = req.body.image;
-    var description = req.body.description;
+    const dbClothe = req.body;
+    ProductModel.create(dbClothe,(err,data)=>{
+        if(err){
+            res.status(500).send(err);
+        }else{
+            res.status(201).send(`new clothes create : ${data}`);
+        }
+    })
 
-    const newProduct = new Product({name,price,image,description});
-    newProduct.save()
-        .then(() => res.json("Product added"))
-        .catch(err =>res.status(400).json('Error : '+err) );
-    
 }

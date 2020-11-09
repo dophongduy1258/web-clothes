@@ -1,13 +1,14 @@
 import React from "react";
-import {BrowserRouter as Router,Route,Link, Switch} from 'react-router-dom';
-import { FaCartPlus ,FaUser,FaTruck,FaRedoAlt,FaQuestionCircle,FaEnvelope,FaPhoneAlt} from 'react-icons/fa';
+import {BrowserRouter as Link} from 'react-router-dom';
+import { Button, Form, FormGroup, Label, Input, FormText, Container } from 'reactstrap';
+import { FaCartPlus ,FaUser,FaEnvelope,FaPhoneAlt} from 'react-icons/fa';
 import { FiChevronDown,FiHeart } from "react-icons/fi";
 import { BiSearch } from "react-icons/bi";
 import { IoMdPin } from "react-icons/io";
 
 
 
-export default function(){
+export default function About(){
     return(
         <div className="site-wrap">
         <header className="site-navbar" role="banner">
@@ -28,7 +29,7 @@ export default function(){
                         <div className="col-6 col-md-4 order-3 order-md-3 text-right">
                             <div className="site-top-icons">
                             <ul>
-                                <li><a href="#"><FaUser /></a></li>
+                                <li><Link to="/register/"><FaUser /></Link></li>
                                 <li><a href="#"><FiHeart /></a></li>
                                 <li>
                                 <Link to="/cart/">

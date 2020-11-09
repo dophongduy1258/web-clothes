@@ -1,92 +1,33 @@
-import React ,{Component,useContext} from "react";
+
+import apiCaller from '../utils/apiCaller';
+import React ,{Component} from "react";
 import {BrowserRouter as Router,Route,Link, Switch} from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText, Container } from 'reactstrap';
 import { FaCartPlus ,FaUser,FaTruck,FaRedoAlt,FaQuestionCircle,FaEnvelope,FaPhoneAlt} from 'react-icons/fa';
 import { FiChevronDown,FiHeart } from "react-icons/fi";
 import { BiSearch } from "react-icons/bi";
 import { IoMdPin } from "react-icons/io";
-import {ProductContext} from "../contexts/product.context";
 // import Card from "../components/card.component";
-var randomstring = require("randomstring");
+
 
 export default class Product extends Component{
     constructor(props){
         super(props);
         this.state={
-            productList : [
-                {
-                    id: this.onGenerateID(),
-                    name:'vest',
-                    price:"200000",
-                    image:"https://vestdep.net/upload/vestdep/2017/08/bo-vest-nam-xanh-caro-denim-cao-cap-3.jpg",
-                    description:"egfeagaeg",
-                },
-                {
-                    id:this.onGenerateID(),
-                    name:'blaze',
-                    price:"250000",
-                    image:"https://cf.shopee.vn/file/c8e9dce4a61f4fc97965a55a01645e9f",
-                    description:"db5b45b",
-                },
-                {
-                    id:this.onGenerateID(),
-                    name:'hoodie',
-                    price:"100000",
-                    image:"https://cf.shopee.vn/file/685369fcf3d967f43ce0b320a1533b46",
-                    description:"3wgv34g2t",
-                }
-            ]
+            productList : []
         }
     }
 
     
-    // tạo random data
-    onGenerateData = ()=>{
-        var product = [
-            {
-            id: this.onGenerateID(),
-            name:'vest',
-            price:"200000",
-            image:"https://vestdep.net/upload/vestdep/2017/08/bo-vest-nam-xanh-caro-denim-cao-cap-3.jpg",
-            description:"egfeagaeg",
-            },
-            {
-            id:this.onGenerateID(),
-            name:'blaze',
-            price:"250000",
-            image:"https://cf.shopee.vn/file/c8e9dce4a61f4fc97965a55a01645e9f",
-            description:"db5b45b",
-            },
-            {
-            id:this.onGenerateID(),
-            name:'hoodie',
-            price:"100000",
-            image:"https://cf.shopee.vn/file/685369fcf3d967f43ce0b320a1533b46",
-            description:"3wgv34g2t",
-            },
-        ]
-        // localStorage.setItem('product',JSON.stringify(product));
-        // console.log("onGenerateData in context"+this.state.productList);
-        // console.log(product);
-        
+    componentDidMount(){
+        apiCaller('api','GET',null)
+            .then((res)=>{
+                this.setState({
+                    productList:res.data
+                });
+            });
     }
-
-
-    // Tạo chuỗi ID ngẫu nhiên
-    onGenerateID = ()=>{
-        var id = randomstring.generate();
-        return id;
-    }
-
-    setProductList=(products)=>{
-        // console.log("setProductList"+products);
-        this.setState({
-            productList:products
-        })
-        
-        localStorage.setItem('product',JSON.stringify(products));
-    }
-
+    
     // componentDidMount(){
     //     console.log("componentDidMount");
     //     // kiểm tra xem localStorage có khác null ko và có lấy đc key ko 
@@ -107,23 +48,7 @@ export default class Product extends Component{
 
 
     render(){
-        // const context = useContext(ProductContext);
-        // console.log("check context.productlist");
-        // var element = context.productList.map((value)=>{
-            // <div className="col-sm-6 col-lg-4 mb-4" >
-            //      <div className="block-4 text-center border">
-            //          <figure className="block-4-image">
-            //              <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
-            //          </figure>
-            //          <div className="block-4-text p-4">
-            //              <h3><Link to="/infoClothe/">{value.name}</Link></h3>
-            //              <p className="mb-0">{value.description}</p>
-            //              <p className="text-primary font-weight-bold">{value.price}</p>
-            //          </div>
-            //      </div>
-            //  </div>
-        // });
-
+        
 
         const {productList} = this.state;
         var elementProduct = productList.map((value,key)=>(

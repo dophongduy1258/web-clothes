@@ -6,16 +6,17 @@ import { FiChevronDown,FiHeart } from "react-icons/fi";
 import { FaCartPlus ,FaUser,FaTruck,FaRedoAlt,FaQuestionCircle,FaEnvelope,FaPhoneAlt} from 'react-icons/fa';
 import { BiSearch } from "react-icons/bi";
 import { IoMdPin } from "react-icons/io";
-import axios from "axios";
+import apiCaller from "../utils/apiCaller";
 
 export default class AddClothe extends Component{
     constructor(props){
         super(props);
         this.state={
-            id:"",
             name:"",
             price:"",
             image:"",
+            status:true,
+            quantity:5,
             description:"",
         }
     }
@@ -30,31 +31,42 @@ export default class AddClothe extends Component{
         var target = event.target;
         var value = target.value;
         var name = target.name;
-        if(value.id ===""){
-            var id = this.uuidv4();
-            value = target.value.id === "" ? id : "";
-            
+        if(name === "status"){
+            value = target.value === "true"? true : false;
         }
         this.setState({
-            [name] : [value]
+            [name] : value
         })
-        console.log(this.state);
     }
 
     onSubmit = (event)=>{
         event.preventDefault();
-        var product = {
-            name:this.state.name,
-            price:this.state.price,
-            image:this.state.image,
-            description:this.state.description
-        }
-        console.log(product);
-        axios.post("http://localhost:2020/product/addProduct",product)
-            .then(res => console.log(res.data));
-            
+        // var product = {
+        //     name:this.state.name,
+        //     price:this.state.price,
+        //     image:this.state.image,
+        //     status:this.state.status,
+        //     quantity:this.state.quantity,
+        //     description:this.state.description
+        // }
+        console.log(this.state);
+        var {name,price,image,status,quantity,description} = this.state;
+        var {history} = this.props;
+        apiCaller('api/add','POST',{
+            name:name,
+            price:price,
+            image:image,
+            status:status,
+            quantity:quantity,
+            description:description,
 
-        // localStorage.setItem("product",JSON.stringify());
+        })
+            .then((res)=>{
+                console.log(res);
+                // history.push('/')
+                // redirect về trang trước đó
+                history.goBack()}
+            );
     }
 
     render(){
@@ -152,55 +164,21 @@ export default class AddClothe extends Component{
 
                             <FormGroup>
                                 <Label >Giá : </Label>
-                                <Input type="text" onChange={this.onChange} name="price" />
+                                <Input type="number" onChange={this.onChange} name="price" />
                             </FormGroup>
 
-                            {/* <FormGroup>
-                                <Label for="exampleSelect">Select</Label>
-                                <Input type="select" name="select" id="exampleSelect">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </Input>
-                            </FormGroup> */}
+                            <FormGroup>
+                                <Label >Tình trạng : </Label>
+                                <select name="quantity" value={this.state.quantity} onChange={this.onChange}>
+                                    <option value={true}>Còn hàng</option>
+                                    <option value={false}>Hết hàng</option>
+                                </select>
+                            </FormGroup>
 
-                            {/* <FormGroup>
-                                <Label for="exampleSelectMulti">Select Multiple</Label>
-                                <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </Input>
-                            </FormGroup> */}
-
-                            {/* <FormGroup>
-                                <Label >Loại : </Label>
-                                <Input type="text" onChange={this.onChange} name="category"  />
-                            </FormGroup> */}
-
-                            {/* <FormGroup>
-                                <Label >Hình ảnh : </Label>
-                                <Input type="file" onChange={this.onChange} name="image"  />
-                            </FormGroup> */}
-                            
-                            {/* <FormGroup>
+                            <FormGroup>
                                 <Label >Số lượng : </Label>
-                                <Input type="number" onChange={this.onChange} name="quantity"  />
+                                <Input type="number" onChange={this.onChange} name="quantity" />
                             </FormGroup>
-                            
-                            <FormGroup>
-                                <Label >Nhà sản xuất : </Label>
-                                <Input type="text" onChange={this.onChange} name="producer"  />
-                            </FormGroup>
-                            
-                            <FormGroup>
-                                <Label >Giám đốc : </Label>
-                                <Input type="text" onChange={this.onChange} name="director"  />
-                            </FormGroup> */}
                             
                             <FormGroup>
                                 <Label >Chi tiết sản phẩm : </Label>
