@@ -61,7 +61,7 @@ const routes = [
     {
         path:'/:id/edit',
         exact:false,
-        main:({match})=><EditProduct match={match}/>
+        main:({match,history})=><EditProduct history={history} match={match}/>
     },
 ]
 export default routes;

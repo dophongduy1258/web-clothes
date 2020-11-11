@@ -153,6 +153,7 @@ export default class Product extends Component{
                             <div className="row">
                                 <div className="col-md-12 mb-5">
                                 <div className="float-md-left mb-4"><h2 className="text-black h5">Shop All</h2> <Button><Link to="/addClothe/">Add</Link></Button>
+                                <Button><Link to="/productList/">list product</Link></Button>
                                     {/* <ProductContext.Consumer>
                                         {({onGenerateData})=><Button onClick={onGenerateData}>random clothe</Button>}
                                     </ProductContext.Consumer> */}
