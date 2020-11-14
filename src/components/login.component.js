@@ -1,71 +1,92 @@
 // import { render } from "node-sass";
+import apiCaller from '../utils/apiCaller';
 import React, { Component } from "react";
 import "../css/register.css";
-import apiCaller from '../utils/apiCaller';
-import { Button ,Form, FormGroup, Label, Input, FormText, Container} from 'reactstrap';
-import {BrowserRouter as Router,Route,Link, Switch} from 'react-router-dom';
+import { Button } from 'reactstrap';
+import {BrowserRouter as Router,Route,Link, Switch,Redirect} from 'react-router-dom';
 import { FaCartPlus ,FaUser,FaTruck,FaRedoAlt,FaQuestionCircle,FaEnvelope,FaPhoneAlt} from 'react-icons/fa';
 import { FiChevronDown,FiHeart } from "react-icons/fi";
 import { BiSearch } from "react-icons/bi";
 import { IoMdPin } from "react-icons/io";
 
-export default class Register extends Component{
+export default class Login extends Component{
     constructor(props){
         super(props);
-        this.state={
-            name:"",
-            phone:"",
-            address:"",
-            age:6,
-            gender:true,
-            image: "",
+        
+        const token = localStorage.getItem("token");
+        let isLogin = false;
+
+        if(token == null){
+           isLogin = false
+        }
+
+
+        this.state = {
             email: "",
             password: "",
+            token:"",
+            isLogin,
+            userList : []
         }
+    }
+
+    componentDidMount(){
+        apiCaller('api/user','GET',null)
+            .then(res=>{
+                this.setState({
+                   userList:res.data
+                })
+            });
     }
 
     onChange = (event)=>{
         var target = event.target;
         var value = target.value;
         var name = target.name;
-        if(name === "gender"){
-            value = target.value === "true"? true : false;
-        }
+        // if(name === "gender"){
+        //     value = target.value === "true"? true : false;
+        // }
         this.setState({
             [name] : value
         })
     }
 
-    onSubmit = (event)=>{
-        event.preventDefault();
-        var {name,phone,address,age,gender,image,email,password} = this.state;
-        var {history} = this.props;
-        apiCaller('api/addUser','POST',{
-            name:name,
-            phone:phone,
-            address:address,
-            age:age,
-            gender:gender,
-            image:image,
-            email:email,
-            password:password,
+    onSubmit = (e)=>{
+        e.preventDefault();
+        var {userList,email,password,isLogin} = this.state;
+        userList.forEach((value,index)=>{
+            if(value.email === email && value.password === password){
+                this.setState({
+                    isLogin:true
+                })
+                // Is Admin
+                if(email === "admin@gmail.com"){
+                    this.setState({
+                        isLogin:true
+                    })
 
+                    localStorage.setItem('token',"iwkeubf29ho2fohefh29h");
+                }
+            }
+            // else if(){
+            //     return alert("Your email or password is wrong. Please try angain !");
+            // }
         })
-            .then((res)=>{
-                console.log(res);
-                // history.push('/')
-                // redirect về trang trước đó
-                history.goBack()}
-            );
     }
 
 
-
     render(){
+        if(this.state.isLogin){
+            // if(this.state.token === "iwkeubf29ho2fohefh29h"){
+            //     return <Redirect to="/userList"/>
+            // }
+            return <Redirect to="/userList"/>
+        }
+
         return(
             <div className="site-wrap">
-                {/* register */}
-            <div className="site-section block-3 site-blocks-2 bg-light" style={{height:"700px"}}>
+                {/* login */}
+                <div className="site-section block-3 site-blocks-2 bg-light" style={{height:"700px"}}>
                 <div className="signup__container" style={{width:"500px",height:"500px",marginTop:"150px"}}>
                     <div className="container__child signup__thumbnail">
                         <div className="thumbnail__logo">
@@ -87,36 +108,25 @@ export default class Register extends Component{
                         <div className="signup__overlay" />
                     </div>
                     <div className="container__child signup__form">
-                        <Form action="#" onSubmit={this.onSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <input className="form-control" type="text" onChange={this.onChange} name="name" id="username" placeholder="james.bond" required />
-                        </div>
+                        <form action="#" onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
-                            <input className="form-control" type="text" onChange={this.onChange} name="email" id="email" placeholder="james.bond@spectre.com" required />
+                            <input className="form-control" type="text" onChange={this.onChange}  name="email" id="email" placeholder="Your email" required />
                         </div>
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
                             <input className="form-control" type="password" onChange={this.onChange} name="password" id="password" placeholder="********" required />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="passwordRepeat">Repeat Password</label>
-                            <input className="form-control" type="password" onChange={this.onChange} name="passwordRepeat" id="passwordRepeat" placeholder="********" required />
-                        </div>
                         <div className="m-t-lg">
                             <ul className="list-inline">
                             <li>
-                                {/* <input className="btn btn--form" type="submit" defaultValue="Register" /> */}
-                                <Button type="submit" outline color="warning">Create</Button>
-                                <Button outline color="secondary"><Link to="/login/">Go Back</Link></Button>
-                            </li>
-                            <li>
-                                <a className="signup__link" href="#">I am already a member</a>
+                                {/* <input className="btn btn--form" type="submit"/> */}
+                                <Button outline type="submit" color="primary">Login</Button>
+                                <Button outline color="warning"><Link to="/register/">Register</Link></Button>
                             </li>
                             </ul>
                         </div>
-                        </Form>  
+                        </form>  
                     </div>
                 </div>
                 </div>

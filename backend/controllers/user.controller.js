@@ -1,20 +1,8 @@
-var ProductModel = require('../models/product.model');
+var EmployeeModel = require('../models/user.model');
 
-module.exports.listProduct = (req,res)=>{
-    // var product = await Product.find()
-        // .then((data)=>{
-        //     console.log("Data : ",data);
-        //     res.json(data);
-        // })
-        // .catch((error)=>{
-        //     console.log('Error : ',error);
-        // });
-        // Product.find({})
-        //     .then(data => console.log('data',data))
-        //     .catch(err =>res.status(400).json('Error : '+err) );
-
+module.exports.listUser = (req,res)=>{
         
-        ProductModel.find({})
+		EmployeeModel.find({})
             .then(function(data){   
                 console.log('data',data);
                 res.json(data)
@@ -26,12 +14,12 @@ module.exports.listProduct = (req,res)=>{
 
 module.exports.add = (req,res)=>{
 
-    const dbClothe = req.body;
-    ProductModel.create(dbClothe,(err,data)=>{
+    const dbUser = req.body;
+    EmployeeModel.create(dbUser,(err,data)=>{
         if(err){
             res.status(500).send(err);
         }else{
-            res.status(201).send(`new clothes create : ${data}`);
+            res.status(201).send(`new user create : ${data}`);
         }
     })
 
@@ -41,7 +29,7 @@ module.exports.add = (req,res)=>{
 
 module.exports.edit = (req,res)=>{
     var id = req.params.id;
-    ProductModel.findById(id)
+    EmployeeModel.findById(id)
         .then(function(data){   
             console.log('data',data);
             console.log(typeof data);
@@ -54,8 +42,8 @@ module.exports.edit = (req,res)=>{
 
 module.exports.update = (req,res)=>{
     var id = req.params.id;
-    const updatedClothe = req.body;
-    ProductModel.update({_id:id},updatedClothe,(err,data)=>{
+    const updatedUser = req.body;
+    EmployeeModel.update({_id:id},updatedUser,(err,data)=>{
         if(err){
             res.status(500).send(err);
         }else{
@@ -67,7 +55,7 @@ module.exports.update = (req,res)=>{
 
 module.exports.delete = (req,res)=>{
     var id = req.params.id;
-    ProductModel.remove({_id:id},(err,data)=>{
+    EmployeeModel.remove({_id:id},(err,data)=>{
         if(err){
             res.status(500).send(err);
         }else{

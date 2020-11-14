@@ -13,8 +13,8 @@ export default class EditProduct extends Component{
             name:"",
             price:"",
             image:"",
-            status:true,
-            quantity:5,
+            status:false,
+            quantity:0,
             description:"",
         }
     }
@@ -24,10 +24,9 @@ export default class EditProduct extends Component{
         var {match} = this.props;
         if(match){
             var id = match.params.id;
-            apiCaller(`api/edit/${id}`,"GET",null).then((res)=>{
+            apiCaller(`api/editProduct/${id}`,"GET",null).then((res)=>{
                 // console.log(res.data);
                 var data = res.data;
-                console.log( data);
                 this.setState({
                     id:data._id,
                     name:data.name,
@@ -63,13 +62,13 @@ export default class EditProduct extends Component{
         var {id,name,price,image,status,quantity,description} = this.state;
         if(id){//update
             // http://localhost:2020/api/:id method PUT
-            apiCaller(`api/update/${id}`,"PUT",{
+            apiCaller(`api/updateProduct/${id}`,"PUT",{
                 name:name,
                 price:price,
                 image:image,
                 status:status,
                 quantity:quantity,
-                description:description,
+                description:description
             })
                 .then((res)=>{
                     history.goBack();
@@ -77,7 +76,7 @@ export default class EditProduct extends Component{
 
             // console.log('updating');
         }else{
-            apiCaller("api/add","POST",{
+            apiCaller("api/addProduct","POST",{
                 name:name,
                 price:price,
                 image:image,

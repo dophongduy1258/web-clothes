@@ -6,7 +6,6 @@ const port = process.env.PORT;
 // var homeRouter = require("../backend/routers/home.route");
 var apiRouter = require('./routers/api.route');
 // import Product from'./product.js';
-var ProductModel = require('./models/product.model');
 var mongoose = require('mongoose');
 app.use(express.json());
 app.use(cors());

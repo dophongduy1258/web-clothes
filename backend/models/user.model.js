@@ -1,18 +1,17 @@
 var mongoose = require('mongoose');
 
-var employeeSchema = new mongoose.Schema({
-	email: String,
-	password: String,
+var userSchema = new mongoose.Schema({
 	name: String,
-	phone: Number,
+	phone: String,
 	address: String,
 	age: Number,
-	gender: String,
-	office: String,
-	workTime: String,
-	salary: Number,
-	// image: String
+	gender: Boolean,
+	image: String,
+	email: String,
+	password: String,
+},{
+    collection:'User'
 });
 
-var Employee = mongoose.model('Employee',employeeSchema,'employees');
-module.exports= Employee; 
+var EmployeeModel = mongoose.model('Employee',userSchema);
+module.exports= EmployeeModel; 

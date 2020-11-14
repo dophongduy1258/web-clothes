@@ -19,7 +19,7 @@ export default class Home extends Component{
             //=========================================
 
             <div className="site-wrap">
-                <header className="site-navbar" role="banner">
+                {/* <header className="site-navbar" role="banner">
                     <div className="site-navbar-top">
                     <div className="container">
                         <div className="row align-items-center">
@@ -86,16 +86,16 @@ export default class Home extends Component{
                         </ul>
                     </div>
                     </nav>
-                </header>
-                <div className="site-blocks-cover" style={{backgroundImage: "url('https://images.wallpapersden.com/image/download/small-memory_58461_3840x2160.jpg')"}} >
+                </header> */}
+                <div className="site-blocks-cover" style={{backgroundImage: "url('https://i.pinimg.com/originals/aa/ba/b6/aabab62b5bd65b0920d0b98231872fa7.jpg')"}} >
                     <div className="container" >
                     <div className="row align-items-start align-items-md-center justify-content-end">
                         <div className="col-md-5 text-center text-md-left pt-5 pt-md-0">
-                        <h1 className="mb-2">Fashion Changing Always</h1>
+                        <h1 className="mb-2" style={{color: '#7971EA'}}>Fashion Changing Always</h1>
                         <div className="intro-text text-center text-md-left">
-                            <p className="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer accumsan tincidunt fringilla. </p>
+                            {/* <p className="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer accumsan tincidunt fringilla. </p> */}
                             <p>
-                            <a href="#" className="btn btn-sm btn-primary">Shop Now</a>
+                            <a href="/product/" className="btn btn-sm btn-primary">Shop Now</a>
                             </p>
                         </div>
                         </div>

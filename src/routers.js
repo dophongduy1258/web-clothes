@@ -5,6 +5,9 @@ import Cart from "../src/components/cart.component";
 import Product from "../src/components/product.component";
 import About from "../src/components/about.component";
 import Register from "../src/components/register.component";
+import Login from "../src/components/login.component";
+import UserList from '../src/components/userList.component';
+import EditUser from '../src/components/editUser.component';
 import Info from "../src/components/infoClothe.component";
 import AddClothe from "../src/components/addClothe.component";
 import ProductList from '../src/components/productList.component';
@@ -41,7 +44,22 @@ const routes = [
     {
         path:'/register',
         exact:false,
-        main:()=><Register/>
+        main:({history})=><Register history={history}/>
+    },
+    {
+        path:'/login',
+        exact:false,
+        main:()=><Login/>
+    },
+    {
+        path:'/userList',
+        exact:false,
+        main:({history})=><UserList history={history}/>
+    },
+    {
+        path:'/:id/editUser',
+        exact:false,
+        main:({match,history})=><EditUser history={history} match={match}/>
     },
     {
         path:'/infoClothe',
@@ -56,10 +74,10 @@ const routes = [
     {
         path:'/productList',
         exact:false,
-        main:()=><ProductList/>
+        main:({history})=><ProductList history={history}/>
     },
     {
-        path:'/:id/edit',
+        path:'/:id/editProduct',
         exact:false,
         main:({match,history})=><EditProduct history={history} match={match}/>
     },
