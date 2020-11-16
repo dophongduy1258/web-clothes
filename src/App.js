@@ -23,7 +23,7 @@ import HomePage from "./components/home.component";
 // import Register from "../src/components/register.component";
 // import Info from "../src/components/infoClothe.component";
 // import AddClothe from "../src/components/addClothe.component";
-
+import {CartProvider,CartContext} from "./contexts/cart.js";
 import routes from './routers';
 
 
@@ -80,7 +80,8 @@ export default class App extends Component{
 
   render(){
     return (
-        <Router >
+        <CartProvider>
+            <Router >
           <div className="App">
             {/* home page */}
             {/* <HomePage/> */}
@@ -108,7 +109,10 @@ export default class App extends Component{
                                 <li>
                                 <Link to="/cart/">
                                     <FaCartPlus />
-                                    <span className="count">2</span>
+                                    <CartContext.Consumer>
+                                        {({cartItem})=><span className="count">{cartItem.length}</span>}
+                                    </CartContext.Consumer>
+                                    {/* <span className="count">2</span> */}
                                 </Link>
                                 </li> 
                                 <li className="d-inline-block d-md-none ml-md-0"><a href="#" className="site-menu-toggle js-menu-toggle"><span className="icon-menu" /></a></li>
@@ -170,6 +174,7 @@ export default class App extends Component{
             </Switch>
           </div>
         </Router>
+        </CartProvider>
     );
   }
 }

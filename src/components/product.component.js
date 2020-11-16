@@ -8,6 +8,7 @@ import { FiChevronDown,FiHeart } from "react-icons/fi";
 import { BiSearch } from "react-icons/bi";
 import { IoMdPin } from "react-icons/io";
 // import Card from "../components/card.component";
+import {CartContext} from "../contexts/cart";
 
 
 export default class Product extends Component{
@@ -77,7 +78,9 @@ export default class Product extends Component{
                         <p className="mb-0">{value.description}</p>
                         <p className="text-primary font-weight-bold">{value.price}</p>
                     </div>
-                    <button className="btn btn-primary btn-sm btn-block">Add To Cart</button>
+                    <CartContext.Consumer>
+                        {({addToCart})=><Button color="primary" onClick={()=>addToCart(value)} className="btn  btn-sm btn-block">Add To Cart</Button>}
+                    </CartContext.Consumer>
                 </div>
             </div>
     ));

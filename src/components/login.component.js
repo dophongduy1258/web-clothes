@@ -36,6 +36,7 @@ export default class Login extends Component{
                 this.setState({
                    userList:res.data
                 })
+                console.log(this.state.userList);
             });
     }
 
@@ -66,6 +67,7 @@ export default class Login extends Component{
                     })
 
                     localStorage.setItem('token',"iwkeubf29ho2fohefh29h");
+                    // localStorage.setItem('user',JSON.stringify());
                 }
             }
             // else if(){

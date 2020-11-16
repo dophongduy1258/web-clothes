@@ -5,9 +5,18 @@ import { FaCartPlus ,FaUser,FaTruck,FaRedoAlt,FaQuestionCircle,FaEnvelope,FaPhon
 import { BiSearch } from "react-icons/bi";
 import { IoMdPin } from "react-icons/io";
 import { Button } from 'reactstrap';
+import {CartContext} from "../contexts/cart";
 
 
 export default class Cart extends Component{
+    constructor(props){
+        super(props)
+        
+        this.state = {
+            cartItem : []
+        };
+
+    }
     render(){
         return(
             <div className="site-wrap">
