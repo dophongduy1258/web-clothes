@@ -62,9 +62,9 @@ const routes = [
         main:({match,history})=><EditUser history={history} match={match}/>
     },
     {
-        path:'/infoClothe',
+        path:'/:id/infoProduct',
         exact:false,
-        main:()=><Info/>
+        main:({match,history})=><Info history={history} match={match}/>
     },
     {
         path:'/addClothe',

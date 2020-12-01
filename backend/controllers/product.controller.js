@@ -52,6 +52,8 @@ module.exports.edit = (req,res)=>{
         });
 }
 
+
+
 module.exports.update = (req,res)=>{
     var id = req.params.id;
     const updatedClothe = req.body;

@@ -1,5 +1,5 @@
 import apiCaller from '../utils/apiCaller';
-import {BrowserRouter as Link} from 'react-router-dom';
+import {BrowserRouter as Router,Route,Link,Redirect, Switch} from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText, Container } from 'reactstrap';
 import { FaCartPlus ,FaUser,FaTruck,FaRedoAlt,FaQuestionCircle,FaEnvelope,FaPhoneAlt} from 'react-icons/fa';
 import { FiChevronDown,FiHeart } from "react-icons/fi";
@@ -323,16 +323,13 @@ const ProductItem = (props)=>{
         <div className="col-sm-6 col-lg-4 mb-4">
             <div className="block-4 text-center border">
                 <figure className="block-4-image">
-                    <a href="shop-single.html"><img src={image} alt="Image placeholder" className="img-fluid" /></a>
+                <Link to={`/${_id}/infoProduct`}><img src={image} alt="Image placeholder" className="img-fluid" /></Link>
                 </figure>
                 <div className="block-4-text p-4">
-                    <h3><Link to="/infoClothe/">{name}</Link></h3>
+                    <h3><Link to={`/${_id}/infoProduct`}>{name}</Link></h3>
                     <p className="mb-0">{description}</p>
                     <p className="text-primary font-weight-bold">{price}</p>
                 </div>
-                {/* <CartContext.Consumer>
-                    {({addToCart})=><Button color="primary" onClick={()=>addToCart(value)} className="btn  btn-sm btn-block">Add To Cart</Button>}
-                </CartContext.Consumer> */}
                 <Button color="primary" className="btn  btn-sm btn-block">Add To Cart</Button>
             </div>
         </div>
