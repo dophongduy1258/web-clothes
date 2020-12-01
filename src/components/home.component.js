@@ -10,14 +10,6 @@ import { IoMdPin } from "react-icons/io";
 export default class Home extends Component{
     render(){
         return(
-            // <div>
-            //     <h2>Home Page</h2>
-            //     <Link to="/contact/">contact</Link>
-            //     <Link to="/cart/">cart</Link>
-            // </div>
-
-            //=========================================
-
             <div className="site-wrap">
                 {/* <header className="site-navbar" role="banner">
                     <div className="site-navbar-top">
@@ -141,7 +133,7 @@ export default class Home extends Component{
                         <div className="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0"  data-aos-delay>
                         <a className="block-2-item" href="#">
                             <figure className="image">
-                                <img src="https://i.pinimg.com/236x/26/c0/de/26c0def016a944a8685e3c1b21a7d7d3.jpg" alt="" className="img-fluid" />
+                                <img src="https://images.unsplash.com/photo-1581338834647-b0fb40704e21?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80" style={{width:"400px",height:'700px'}} className="img-fluid" />
                             </figure>
                             <div className="text">
                             <span className="text-uppercase">Collections</span>
@@ -152,7 +144,7 @@ export default class Home extends Component{
                         <div className="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0"  data-aos-delay={100}>
                         <a className="block-2-item" href="#">
                             <figure className="image">
-                                <img src="https://mfiles.alphacoders.com/670/670477.jpg" alt="" className="img-fluid" />
+                                <img src="https://c1.wallpaperflare.com/preview/334/875/695/child-fashion-girl-portrait.jpg" style={{width:"400px",height:'700px'}} className="img-fluid" />
                             </figure>
                             <div className="text">
                             <span className="text-uppercase">Collections</span>
@@ -163,7 +155,7 @@ export default class Home extends Component{
                         <div className="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0"  data-aos-delay={200}>
                         <a className="block-2-item" href="#">
                             <figure className="image">
-                                <img src="https://cdn.wallpapersafari.com/18/76/Lg6fkw.jpg" alt="" className="img-fluid" />
+                                <img src="https://www.bestoftoronto.net/wp-content/uploads/2014/08/HD-Homme-Toronto-Mens-Fashion-Week-TOM-BestofToronto-2014-005.jpg" style={{width:"400px",height:'700px'}} className="img-fluid" />
                             </figure>
                             <div className="text">
                             <span className="text-uppercase">Collections</span>
@@ -302,9 +294,9 @@ export default class Home extends Component{
                         </div>
                         </div>
                         <div className="col-md-6 col-lg-3 mb-4 mb-lg-0">
-                        <h3 className="footer-heading mb-4">Promo</h3>
+                        <h3 className="footer-heading mb-4">SHOPPERS</h3>
                         <a href="#" className="block-6">
-                            <img src="https://images.wallpapersden.com/image/download/small-memory_58461_3840x2160.jpg" alt="Image placeholder" className="img-fluid rounded mb-4" />
+                            <img src="https://i.pinimg.com/originals/aa/ba/b6/aabab62b5bd65b0920d0b98231872fa7.jpg" alt="Image placeholder" className="img-fluid rounded mb-4" />
                             <h3 className="font-weight-light  mb-0">Finding Your Perfect Shoes</h3>
                             <p>Promo from  nuary 15 — 25, 2019</p>
                         </a>

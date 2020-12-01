@@ -83,10 +83,10 @@ export default class App extends Component{
                     <div className="container">
                         <div className="row align-items-center">
                         <div className="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
-                            <form action className="site-block-top-search">
+                            {/* <form action className="site-block-top-search">
                             <BiSearch/>
                             <input type="text" className="form-control border-0" placeholder="Search" />
-                            </form>
+                            </form> */}
                         </div>
                         <div className="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
                             <div className="site-logo">

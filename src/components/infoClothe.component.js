@@ -155,9 +155,9 @@ export default function InfoClothe(props){
                         </div>
                         </div>
                         <div className="col-md-6 col-lg-3 mb-4 mb-lg-0">
-                        <h3 className="footer-heading mb-4">Promo</h3>
+                        <h3 className="footer-heading mb-4">SHOPPERS</h3>
                         <a href="#" className="block-6">
-                            <img src="https://images.wallpapersden.com/image/download/small-memory_58461_3840x2160.jpg" alt="Image placeholder" className="img-fluid rounded mb-4" />
+                            <img src="https://i.pinimg.com/originals/aa/ba/b6/aabab62b5bd65b0920d0b98231872fa7.jpg" alt="Image placeholder" className="img-fluid rounded mb-4" />
                             <h3 className="font-weight-light  mb-0">Finding Your Perfect Shoes</h3>
                             <p>Promo from  nuary 15 — 25, 2019</p>
                         </a>
@@ -222,7 +222,7 @@ const InfoProduct = (props)=>{
                         <h2 className="text-black">{name}</h2>
                         <p>{description}</p>
                         <p className="mb-4">Ex numquam veritatis debitis minima quo error quam eos dolorum quidem perferendis. Quos repellat dignissimos minus, eveniet nam voluptatibus molestias omnis reiciendis perspiciatis illum hic magni iste, velit aperiam quis.</p>
-                        <p><strong className="text-primary h4">{price}</strong></p>
+                        <p><strong className="text-primary h4">{price} đ</strong></p>
                         
                         <div className="mb-1 d-flex">
                             <label htmlFor="option-sm" className="d-flex mr-3 mb-3">
