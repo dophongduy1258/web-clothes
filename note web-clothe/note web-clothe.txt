@@ -1,0 +1,50 @@
+Robo 3T 
+	database : clothe-db
+	collection : 	
+		User:
+			name: String,
+			phone: String,
+			address: String,
+			age: Number,
+			gender: Boolean,
+			image: String,
+			email: String,
+			password: String,
+
+		Product:
+			name:String,
+    			price:Number,
+    			image:String,
+    			status:Boolean,
+    			quantity:Number,
+    			description:String,
+
+
+
+
+src/store/reducers/cart
+
+index.js : Provider store
+
+src/containers/cartContainer.js
+t muốn lấy sản phẩm mà ng dùng click vô 1 object product{ [{_id,name,price},{_id,name,price}....] } chứa mảng sản phẩm ng dùng đã click, trong mảng của object product chứa thông tin sản phẩm
+cứ như thế ng dùng click sản phẩm thì tự động update mảng trong object product trên cùng với quantity , khi click mua thì quăng cái thag object đó vô thag user đang đăng nhập và
+tự động update lại nếu mua thêm.
+
+
+cái thag quantity t tạo trong models ở backend ấy m xóa luôn cug đc tại phần này t ko bik nên làm sao, có j m sửa dùm t 
+ko đc cug ko sao có j nói t sớm nha m
+
+cảm ơn m trước
+
+
+
+
+
+
+
+
+
+
+
+
