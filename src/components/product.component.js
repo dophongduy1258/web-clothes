@@ -1,99 +1,81 @@
-
 import apiCaller from '../utils/apiCaller';
-import React ,{Component} from "react";
-import {BrowserRouter as Router,Route,Link, Switch} from 'react-router-dom';
+import {BrowserRouter as Link} from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText, Container } from 'reactstrap';
 import { FaCartPlus ,FaUser,FaTruck,FaRedoAlt,FaQuestionCircle,FaEnvelope,FaPhoneAlt} from 'react-icons/fa';
 import { FiChevronDown,FiHeart } from "react-icons/fi";
 import { BiSearch } from "react-icons/bi";
 import { IoMdPin } from "react-icons/io";
-// import Card from "../components/card.component";
-import {CartContext} from "../contexts/cart";
+import ReactDOM from 'react-dom'
+import React,{Component,useState,useEffect} from 'react'
+// import ProductItem from './productItem.component'
 
 
-export default class Product extends Component{
-    constructor(props){
-        super(props);
-
-        const token = localStorage.getItem("token");
-        
-        let isLogin = true;
-
-        if(token == null){
-            this.setState.isLogin = false
-        }else{
-            this.setState.isLogin = true
-        }
-        
-        this.state={
-            
-            token:"",
-            isLogin,
-            productList : []
-        }
-    }
-    
-    
-    componentDidMount(){
+export default function Product(props){
+    const [productList,setProductList] = useState([]);
+    const [loading,setLoading] = useState(false);
+    const [search,setSearch] = useState('');
+    useEffect(()=>{
+        setLoading(true);
         apiCaller('api/Product','GET',null)
             .then((res)=>{
-                this.setState({
-                    productList:res.data
-                });
+                setProductList(res.data);
+                setLoading(false);
             });
+    },[]);
+
+
+
+    if(loading){
+        return <p>Loading products....</p>
     }
-    
-    // componentDidMount(){
-    //     console.log("componentDidMount");
-    //     // kiểm tra xem localStorage có khác null ko và có lấy đc key ko 
-    //     if(localStorage && localStorage.getItem("product") ) {
-    //         var product = JSON.parse(localStorage.getItem("product"));
-    //         console.log("componentDidMount lần 2 refresh check productList đã lưu data chưa");
-    //         console.log(this.state.productList);
-    //         this.setState({
-    //             productList:this.state.productList.push(product)
-    //         })
-    //         console.log("check type of productList");
-    //         console.log(typeof this.state.productList);
-    //     }
-        
 
-    // }
+    // setSearch(keyword);
+    const filterByKeyword = productList.filter(product => {
+        return product.name.toLowerCase().includes(search.toLocaleLowerCase())
+    })
 
 
 
-    render(){
-        
-
-        const {productList} = this.state;
-        var elementProduct = productList.map((value,key)=>(
+    return(
+        <>
             
-            <div className="col-sm-6 col-lg-4 mb-4" >
-                <div className="block-4 text-center border">
-                    <figure className="block-4-image">
-                        <a href="shop-single.html"><img src={value.image} alt="Image placeholder" className="img-fluid" /></a>
-                    </figure>
-                    <div className="block-4-text p-4">
-                        <h3><Link to="/infoClothe/">{value.name}</Link></h3>
-                        <p className="mb-0">{value.description}</p>
-                        <p className="text-primary font-weight-bold">{value.price}</p>
-                    </div>
-                    <CartContext.Consumer>
-                        {({addToCart})=><Button color="primary" onClick={()=>addToCart(value)} className="btn  btn-sm btn-block">Add To Cart</Button>}
-                    </CartContext.Consumer>
-                </div>
-            </div>
-    ));
-            
-    
-        return(
-            <div className="site-wrap">
-                
-                <div className="bg-light py-3">
+            <div className="bg-light py-3">
                     <div className="container">
                     <div className="row">
                         <div className="col-md-12 mb-0"><Link to="/">Home</Link> <span className="mx-2 mb-0">/</span> <strong className="text-black">Shop</strong></div>
                     </div>
+                    <div className="row">
+                        <div className="col-lg-12 card-margin">
+                            <div className="card search-form">
+                                <div className="card-body p-0">
+                                    <form  id="search-form">
+                                        <div className="row">
+                                        <div className="col-12">
+                                            <div className="row no-gutters">
+                                            <div className="col-lg-3 col-md-3 col-sm-12 p-0">
+                                                {/* <select className="form-control" value={filterType} name='filterType' onChange={this.onChange} id="exampleFormControlSelect1">
+                                                <option value={-1}>Tìm theo </option>
+                                                <option value={0}>Tên sản phẩm</option>
+                                                <option value={1}>Thương hiệu</option>
+                                                </select> */}
+                                            </div>
+                                            <div className="col-lg-8 col-md-6 col-sm-12 p-0">
+                                                <input type="text"  placeholder="Search..." onChange={e=> setSearch(e.target.value)} className="form-control" id="search" />
+                                            </div>
+                                            <div className="col-lg-1 col-md-3 col-sm-12 p-0">
+                                                <button type="button" className="btn btn-base" >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx={11} cy={11} r={8} /><line x1={21} y1={21} x2="16.65" y2="16.65" /></svg>
+                                                </button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     </div>
                 </div>
                 <div className="site-section">
@@ -102,12 +84,10 @@ export default class Product extends Component{
                         <div className="col-md-9 order-2">
                             <div className="row">
                                 <div className="col-md-12 mb-5">
-                                <div className="float-md-left mb-4"><h2 className="text-black h5">Shop All</h2> <Button><Link to="/addClothe/">Add</Link></Button>
-                                <Button><Link to="/productList/">list product</Link></Button>
-                                    {/* <ProductContext.Consumer>
-                                        {({onGenerateData})=><Button onClick={onGenerateData}>random clothe</Button>}
-                                    </ProductContext.Consumer> */}
-                                    {/* <Button onClick={this.onGenerateData}>random clothe</Button> */}
+                                <div className="float-md-left mb-4">
+                                    <h2 className="text-black h5">Shop All</h2> 
+                                    <Button><Link to="/addClothe/">Add</Link></Button>
+                                    <Button><Link to="/productList/">list product</Link></Button>
                                 </div>
                                 <div className="d-flex">
                                     <div className="dropdown mr-1 ml-md-auto">
@@ -138,25 +118,12 @@ export default class Product extends Component{
                             {/* list product */}
                             
                             <div className="row mb-5">
-                                {elementProduct}
-                                {/* {
-                                    context.productList.map((value)=>{
-                                        <div className="col-sm-6 col-lg-4 mb-4" >
-                                            <div className="block-4 text-center border">
-                                                <figure className="block-4-image">
-                                                    <a href="shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" className="img-fluid" /></a>
-                                                </figure>
-                                                <div className="block-4-text p-4">
-                                                    <h3><Link to="/infoClothe/">{value.name}</Link></h3>
-                                                    <p className="mb-0">{value.description}</p>
-                                                    <p className="text-primary font-weight-bold">{value.price}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    })
-                                } */}
 
-                                {/* {result} */}
+
+                                {filterByKeyword.map((product,idx)=>(
+                                    <ProductItem key={idx} {...product}/>
+                                ))}
+
 
                             </div>
                                 
@@ -342,8 +309,59 @@ export default class Product extends Component{
                     </div>
                     </div>
                 </footer>
-            </div>
+        </>
+    )
+    
 
-        )
-    }
+    
 }
+
+
+const ProductItem = (props)=>{
+    const {_id,name,price,image,status,quantity,description} = props;
+    return(
+        <div className="col-sm-6 col-lg-4 mb-4">
+            <div className="block-4 text-center border">
+                <figure className="block-4-image">
+                    <a href="shop-single.html"><img src={image} alt="Image placeholder" className="img-fluid" /></a>
+                </figure>
+                <div className="block-4-text p-4">
+                    <h3><Link to="/infoClothe/">{name}</Link></h3>
+                    <p className="mb-0">{description}</p>
+                    <p className="text-primary font-weight-bold">{price}</p>
+                </div>
+                {/* <CartContext.Consumer>
+                    {({addToCart})=><Button color="primary" onClick={()=>addToCart(value)} className="btn  btn-sm btn-block">Add To Cart</Button>}
+                </CartContext.Consumer> */}
+                <Button color="primary" className="btn  btn-sm btn-block">Add To Cart</Button>
+            </div>
+        </div>
+    )
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

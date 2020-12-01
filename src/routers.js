@@ -2,7 +2,7 @@ import React from 'react';
 import HomePage from "./components/home.component";
 import Contact from "../src/components/contact.component";
 import Cart from "../src/components/cart.component";
-import Product from "../src/components/product.component";
+import ProductPage from "../src/components/productPage.component";
 import About from "../src/components/about.component";
 import Register from "../src/components/register.component";
 import Login from "../src/components/login.component";
@@ -24,7 +24,7 @@ const routes = [
     {
         path:'/product',
         exact:false,
-        main:()=><Product/>
+        main:()=><ProductPage/>
     },
     {
         path:'/contact',

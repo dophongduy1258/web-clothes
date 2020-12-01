@@ -6,7 +6,7 @@ import { BiSearch } from "react-icons/bi";
 import { IoMdPin } from "react-icons/io";
 import { Button } from 'reactstrap';
 import {CartContext} from "../contexts/cart";
-
+import CartContainer from './../containers/cartContainer'
 
 export default class Cart extends Component{
     constructor(props){
@@ -19,7 +19,9 @@ export default class Cart extends Component{
     }
     render(){
         return(
+
             <div className="site-wrap">
+                <CartContainer/>
                 <div className="bg-light py-3">
                     <div className="container">
                     <div className="row">

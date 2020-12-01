@@ -93,7 +93,7 @@ export default class AddClothe extends Component{
 
                             <FormGroup>
                                 <Label >Tình trạng : </Label>
-                                <select name="quantity" value={this.state.quantity} onChange={this.onChange}>
+                                <select name="status" value={this.state.status} onChange={this.onChange}>
                                     <option value={true}>Còn hàng</option>
                                     <option value={false}>Hết hàng</option>
                                 </select>
